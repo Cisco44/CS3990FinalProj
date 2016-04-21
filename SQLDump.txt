@@ -1,0 +1,208 @@
+-- phpMyAdmin SQL Dump
+-- version 4.5.1
+-- http://www.phpmyadmin.net
+--
+-- Host: 127.0.0.1
+-- Generation Time: Apr 21, 2016 at 07:53 AM
+-- Server version: 10.1.9-MariaDB
+-- PHP Version: 5.6.15
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET time_zone = "+00:00";
+
+--
+-- Database: `fredsdb`
+--
+CREATE DATABASE IF NOT EXISTS `fredsdb` DEFAULT CHARACTER SET utf8 COLLATE utf8_bin;
+USE `fredsdb`;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `client`
+--
+
+CREATE TABLE `client` (
+  `Address` varchar(30) COLLATE utf8_bin DEFAULT NULL,
+  `Client_ID` int(11) DEFAULT NULL,
+  `Date_Of_Birth` date DEFAULT NULL,
+  `Email` varchar(30) COLLATE utf8_bin DEFAULT NULL,
+  `Family_Doctor` varchar(30) COLLATE utf8_bin DEFAULT NULL,
+  `Name` varchar(30) COLLATE utf8_bin DEFAULT NULL,
+  `Phone_Number` varchar(30) COLLATE utf8_bin DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+--
+-- Dumping data for table `client`
+--
+
+INSERT INTO `client` (`Address`, `Client_ID`, `Date_Of_Birth`, `Email`, `Family_Doctor`, `Name`, `Phone_Number`) VALUES
+('121 Street', 44, '0000-00-00', '', 'Dr. El Taco Bell', 'Francisco Costa', ''),
+('King''s Cross 9 3/4', 42, '0000-00-00', 'mlgprolyfe@kappa.com', 'Dr. El Doritos', 'Draco Meteor', '(780) 753-3790');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `forms`
+--
+
+CREATE TABLE `forms` (
+  `Client_ID` int(11) DEFAULT NULL,
+  `Date_Signed` date DEFAULT NULL,
+  `Expiration_Date` date DEFAULT NULL,
+  `Name` varchar(30) COLLATE utf8_bin DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+--
+-- Dumping data for table `forms`
+--
+
+INSERT INTO `forms` (`Client_ID`, `Date_Signed`, `Expiration_Date`, `Name`) VALUES
+(44, '0000-00-00', '0000-00-00', 'Waver'),
+(42, '0000-00-00', '0000-00-00', 'G.O.A.T.');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `login`
+--
+
+CREATE TABLE `login` (
+  `Username` varchar(30) COLLATE utf8_bin DEFAULT NULL,
+  `Password` varchar(30) COLLATE utf8_bin DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+--
+-- Dumping data for table `login`
+--
+
+INSERT INTO `login` (`Username`, `Password`) VALUES
+('FDCosta', 'leKappa');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `medical_information`
+--
+
+CREATE TABLE `medical_information` (
+  `Client_ID` int(11) DEFAULT NULL,
+  `Conditions` varchar(30) COLLATE utf8_bin DEFAULT NULL,
+  `Date_Diagnosed` date DEFAULT NULL,
+  `Date_Treated` date DEFAULT NULL,
+  `Prescribed_Medication` varchar(30) COLLATE utf8_bin DEFAULT NULL,
+  `Special_Considerations` varchar(30) COLLATE utf8_bin DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+--
+-- Dumping data for table `medical_information`
+--
+
+INSERT INTO `medical_information` (`Client_ID`, `Conditions`, `Date_Diagnosed`, `Date_Treated`, `Prescribed_Medication`, `Special_Considerations`) VALUES
+(44, 'Death''s Door', '0000-00-00', '0000-00-00', 'Sleep', 'Insomnia'),
+(42, 'Poor', '0000-00-00', '0000-00-00', 'Alcohol', 'Insanity');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `on_site_injuries`
+--
+
+CREATE TABLE `on_site_injuries` (
+  `Client_ID` int(11) DEFAULT NULL,
+  `Date` date DEFAULT NULL,
+  `Injury` varchar(30) COLLATE utf8_bin DEFAULT NULL,
+  `Notes` blob
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+--
+-- Dumping data for table `on_site_injuries`
+--
+
+INSERT INTO `on_site_injuries` (`Client_ID`, `Date`, `Injury`, `Notes`) VALUES
+(42, '0000-00-00', 'Concussion', 0x5068276e676c7569206d6777276e61666820437468756c687520526c277965682077676168276e61676c2066687461676e);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `physical_assessment`
+--
+
+CREATE TABLE `physical_assessment` (
+  `Blood_Pressure` double DEFAULT NULL,
+  `Bode_Fat` double DEFAULT NULL,
+  `Client_ID` int(11) DEFAULT NULL,
+  `Data_Assessed` date DEFAULT NULL,
+  `Heart_Rate` double DEFAULT NULL,
+  `Height` double DEFAULT NULL,
+  `Weight` double DEFAULT NULL,
+  `Skin_Folds` double DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+--
+-- Dumping data for table `physical_assessment`
+--
+
+INSERT INTO `physical_assessment` (`Blood_Pressure`, `Bode_Fat`, `Client_ID`, `Data_Assessed`, `Heart_Rate`, `Height`, `Weight`, `Skin_Folds`) VALUES
+(9001, 2, 42, '0000-00-00', 0, 150, 100, 20),
+(120, 15, 44, '0000-00-00', 120, 156, 120, 0);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `receipt`
+--
+
+CREATE TABLE `receipt` (
+  `Date` date DEFAULT NULL,
+  `Item` varchar(30) COLLATE utf8_bin DEFAULT NULL,
+  `Receipt_Number` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+--
+-- Dumping data for table `receipt`
+--
+
+INSERT INTO `receipt` (`Date`, `Item`, `Receipt_Number`) VALUES
+('0000-00-00', 'inSaiyan', 4444),
+('0000-00-00', 'OPWorkOut', 7267);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `services`
+--
+
+CREATE TABLE `services` (
+  `Hourly` tinyint(1) DEFAULT NULL,
+  `Name` varchar(30) COLLATE utf8_bin DEFAULT NULL,
+  `Price` double DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+--
+-- Dumping data for table `services`
+--
+
+INSERT INTO `services` (`Hourly`, `Name`, `Price`) VALUES
+(1, 'inSaiyan', 44.44),
+(0, 'OPWorkOut', 1000000);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `transactions`
+--
+
+CREATE TABLE `transactions` (
+  `Client_ID` int(11) DEFAULT NULL,
+  `Receipt_Number` int(11) DEFAULT NULL,
+  `Total_Price` double DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+--
+-- Dumping data for table `transactions`
+--
+
+INSERT INTO `transactions` (`Client_ID`, `Receipt_Number`, `Total_Price`) VALUES
+(44, 4444, 88.88),
+(41, 7267, 1000000);
